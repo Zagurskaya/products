@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.gmail.zagurskaya.web.constant.URLConstant.URL_PRODUCT;
 import static com.gmail.zagurskaya.web.constant.URLConstant.URL_REST_API;
+import static com.gmail.zagurskaya.web.constant.URLConstant.URL_REST_INIT;
 
 @RestController
 @RequestMapping(URL_REST_API)
@@ -36,8 +37,12 @@ public class RestApiProductController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<List<ProductDTO>> getProducts() {
-        productService.initializationBD();
         List<ProductDTO> products = productService.getProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+    @GetMapping(URL_REST_INIT)
+    public ResponseEntity<List<ProductDTO>> init() {
+        productService.initializationBD();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

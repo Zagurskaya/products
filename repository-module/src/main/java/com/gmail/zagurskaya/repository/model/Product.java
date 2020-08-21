@@ -30,11 +30,11 @@ public class Product {
     @Column(name = "lowercase")
     private String lowerCaseName;
 
-    @Where(clause = "exists (select * from model where name = product.uppercase)")
+    @Where(clause = "exists (SELECT p.id, p.name FROM products  m LEFT JOIN product p ON m.name = p.uppercase)")
     private List<Model> modelsUpperCaseList = new ArrayList<>();
 
 
-    @Where(clause = "exists (select * from model where name = product.lowercase)")
+    @Where(clause = "exists (SELECT p.id, p.name FROM products  m LEFT JOIN product p ON m.name = p.lowercase)")
     private List<Model> modelsLowerCaseList = new ArrayList<>();
 
     public Long getId() {
